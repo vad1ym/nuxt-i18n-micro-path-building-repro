@@ -13,16 +13,15 @@ export default defineNuxtConfig({
     disablePageLocales: true,
 
     globalLocaleRoutes: {
-      // (A) dashed route name — `doctors-tag` is what Nuxt itself generates
-      //     for pages/doctors/[tag].vue
-      'doctors': { en: '/doctors', es: '/medicos' },
-      'doctors-tag': { en: '/doctors/:tag', es: '/medicos/:tag' },
+      // Case A.
+      // `blog-slug` is the route name Nuxt generates for pages/blog/[slug].vue.
+      // Both entries are absolute paths, as documented.
+      'blog': { es: '/blog-es' },
+      'blog-slug': { es: '/blog-es/:slug' },
 
-      // (B) a Vue Router param constraint in the template
-      'medicines-country': {
-        en: '/medicines/:country(spain|poland|portugal|italy)',
-        es: '/medicamentos/:country(spain|poland|portugal|italy)',
-      },
+      // Case B.
+      // `(2024|2025)` is a standard Vue Router param constraint.
+      'archive-year': { es: '/archivo/:year(2024|2025)' },
     },
   },
 })

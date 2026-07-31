@@ -1,23 +1,25 @@
 <template>
   <div>
-    <h1>nuxt-i18n-micro — path building repro</h1>
+    <h1>nuxt-i18n-micro — localized path building</h1>
 
-    <h2>A. Dashed route name → duplicated segment</h2>
-    <p>
-      expected <code>/es/medicos/x</code>
-      <br>actual <code data-test="dashed">{{ dashed }}</code>
-    </p>
+    <table border="1" cellpadding="6">
+      <tr><th>case</th><th>expected</th><th>actual</th></tr>
+      <tr>
+        <td>A — dashed route name</td>
+        <td><code>/es/blog-es/hello</code></td>
+        <td><code data-test="a">{{ a }}</code></td>
+      </tr>
+      <tr>
+        <td>B — param constraint</td>
+        <td><code>/es/archivo/2024</code></td>
+        <td><code data-test="b">{{ b }}</code></td>
+      </tr>
+    </table>
 
-    <h2>B. Param regex constraint → leaks into href</h2>
-    <p>
-      expected <code>/es/medicamentos/spain</code>
-      <br>actual <code data-test="regex">{{ regex }}</code>
-    </p>
-
-    <h2>Live links (click to see the 404)</h2>
+    <p>Both actual values 404. Click to confirm:</p>
     <ul>
-      <li><a :href="dashed">{{ dashed }}</a></li>
-      <li><a :href="regex">{{ regex }}</a></li>
+      <li><a :href="a">{{ a }}</a></li>
+      <li><a :href="b">{{ b }}</a></li>
     </ul>
   </div>
 </template>
@@ -25,11 +27,11 @@
 <script setup lang="ts">
 const { $localePath } = useNuxtApp()
 
-const dashed = computed(() =>
-  $localePath({ name: 'doctors-tag', params: { tag: 'x' } }, 'es'),
+const a = computed(() =>
+  $localePath({ name: 'blog-slug', params: { slug: 'hello' } }, 'es'),
 )
 
-const regex = computed(() =>
-  $localePath({ name: 'medicines-country', params: { country: 'spain' } }, 'es'),
+const b = computed(() =>
+  $localePath({ name: 'archive-year', params: { year: '2024' } }, 'es'),
 )
 </script>
